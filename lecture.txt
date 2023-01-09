@@ -131,3 +131,23 @@ JS의 super
 2. 자식 클래스 내에서 부모 클래스의 메소드를 호출 할 때
 
 class Car { 
+	3) constructor(brand) {
+	this.carname = brand;
+	}
+	6)present() {
+	return 'i have a ' + this.carname
+	}
+}
+
+
+2. class Model extends Car {
+	constructor (brand, mod) {
+	super(brand);
+	this.model = mod;
+}
+5) show() {
+	return super.present() + ', it is a ' + this.model;
+}
+1) let mycar = new Model ("Ford", "Mustang");
+4) mycar.show()
+

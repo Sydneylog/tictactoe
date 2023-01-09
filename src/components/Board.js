@@ -5,7 +5,7 @@ import "./Board.css"
 export default class Board extends Component {
 
   renderSquare(i) {
-    //스퀘어 컴포넌트에 value값을 할당 함
+    //스퀘어 컴포넌트에 value값(props)을 할당 함
     return <Square value={i}/>
   }
 
