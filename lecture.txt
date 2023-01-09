@@ -1,0 +1,89 @@
+가상DOM 원리
+
+웹페이지 build Critical Rendering Path CRP
+브라우저가 서버에서 html문서를 일고 렌더링 하는 과정
+
+DOM tree 생성
+렌더 엔진이 문서를 읽어 어떤내용을 페이지에 렌더링할지 결정
+render tree
+layout 각요소의 크기와 위치 계산
+paint 실제 화면에 그려 냄
+
+어떤 인터랙션에 의해 dom변화가 발생하면 렌더트리가 재생성 됨... => 성능상 문제 발생
+=> 보완하기 위해 virtual dom생성 ( 실제 dom을 메모리에 복사해 둠 )
+
+원본 DOM 
+메모리에 복사된 DOM 
+diffing(바뀐 부분을 찾는 과정) 과정을 통해 바뀐 부분만 실제 DOM에 적용(재조정-reconciliation)
+
+요소가 30개 변하였다고 하더라도 한번에 묶어서 한번의 실제 돔 수정으로 처리하게 되어 돔을 조작하는 비용을 최소화 함
+
+npx create-react-app ./ 현재폴더
+설치하면 webpack 이나 babel 같은 모듈이 같이 설치됨
+
+webpack
+웹팩 오픈소스 자바스크립트 번들러
+여러 나누어져 있는 파일들을 하나의 자바스크립트 코드로 압축하하고 최적화하는 라이브러리
+
+1. 로딩에 대한 네트워크 비용을 줄일 수 있음
+2. 모듈 단위로 개발가능하여 가독성과 유지 보수 쉬움
+
+npx create-react-app ./ npx는 무엇?
+
+npx는 node 패키지 실행을 도와주는 도구 create -react app이란 npm 레지스트리에 있는 패키지를 실행해서 리액트를 설치 해줌
+npm registry 라이브러리들이 저장 된 곳 그안ㅇ create react app  패키지를 가져 온 것
+
+리액트 기본 구조
+
+이름 수정되면 안되는 파일들
+public index.html index.html에서 이용하고 싶은 것들은 public폴더 내에 있어야 함
+src index.js js나 css 모두 src 파일 내 js의 경우 webpack을 이용해 번들링 하여 최적화 할 것 임
+
+
+react 앱 실행은 npm run start (package.json에 각각의 명령어 있음) start build test eject
+
+public의 index.html의 div #root을 src의 index.js에서 DOM 찾아 가져옴
+
+기본적으로 함수형 컴포너트로 구성된 app.js 확인 할 수 있음
+
+SPA <-> multi page application
+탬플릿 하나에서 #root를 동적으로 바꾸어줌
+핵심은 HTML5의 history API를 사용 가능하게 함
+
+React Router Dom -> history API 사용
+
+History API
+history.back() 세션 기록의 바로 뒤로 이동
+
+
+틱택토 & JSX
+
+JSX
+js syntax extension
+jsx 는 js확장 문법 화면의 UI를 나타냄 js와 html의 조합
+
+jsx의 사용이 의무는 안됨 그러나 js에서 ui작업이 용이하기에 보통 당연하게 jsx사용함
+
+본래 리액트에서 화면을 그리는 방식은 react createElementapi를 사용해서 객체 생성후 reactDom Render 함수를 사용해서 실제 웹 브라우저에 그려 줌
+
+jsx를 사용하게 되면 babel이 변환 해줌
+createElement를 쉽게 사용하기 위해 사용
+
+JSX를 사용하면서 주의해야 할 문법들
+여러엘리먼트들이 있다면 모든 엘리먼트를 감싸줄 부모 요소가 필요
+
+
+react  초기화\
+src 
+app.test.js 삭제
+index.css 초기화
+app.css 초기화
+app.js function 과 export default App 부분을 제외하고 초기화
+
+1. app 컴포넌트 ui 만들기 app.js
+2. app.css에 스타일링 추가
+3. index.css 태그에 직접 css 할당
+4. 컴포넌트는 src내에 components 폴더 만들어서 따로 관리
+5. 함수형 컴포넌트가 일반적이나 연습상 클래스형 컴포넌트로 먼저 작성
+
+
