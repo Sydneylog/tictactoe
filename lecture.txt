@@ -86,4 +86,48 @@ app.js function 과 export default App 부분을 제외하고 초기화
 4. 컴포넌트는 src내에 components 폴더 만들어서 따로 관리
 5. 함수형 컴포넌트가 일반적이나 연습상 클래스형 컴포넌트로 먼저 작성
 
+extends 부모클래스를 자식 클래스로 상속 시킴
+render 메소드등을 extends Component로 reqct의 컴포넌트에서 상속 받음
 
+확장프로그램 es7 검색
+snppets
+rcc 클래스 컴포넌트
+rfc 함수형 컴포넌트
+
+export default 클래스를 메인으로 밖으로 내보냄 
+import 시 괄호 없이 메인이 되는 컴포넌트 가져옴 import Square from './Square'
+export export 대상 컴포넌트에 square1 square2 square3  등 여러개 존재할 경우
+import { square1, square2, square3 }로 가져와야 함 
+
+Prop을 통한 컴폰너트간 데이터 전달하기
+Props
+상속하는 부모컴포넌트로부터 자녀컴포넌트에 데이들을 전달하는 방법
+
+props는 일기 전용immutable으로 자녀 컴포넌트 입장에서는 변하지 않는다
+변하게 하고자 하면 부모 컴포넌트에서 state를 변경 시켜주어야 한다.
+
+보드컴포넌트에서 스퀘어 컴포넌트로 각각의 숫자를 넘겨 주려고 함
+단방향으로만 진행 가능함
+
+**리액트 state 추가
+컴포넌트를 클릭한 것을 '기억'하게 만들기 위해서는 component는 state를 사용한다.
+class컴포넌트에서는 constructor함수 사용 클래스를 객체로 만들기 위해서는
+new User("jhon") 과 같이 되어야 함
+
+다른 메서드를 사용하기전에 사용자ㅣ 지정 초기화
+value가 null인 경우 setState를 사용하여 value에 "X"를 할당
+
+react 컴포넌트생성자에 this.state를 설정하는 것으로 state를 가질 수 있다. 
+
+리액트에서 데이터가 변할 때 화면을 다시 렌더링 해주기 위해서는 react  state를 사용해야 한다.
+react state란
+컴포넌트 렌더링 결과물에 영향을 주는 데이터를 갖고 있는 객체이다.
+(state 가 변경되면 컴포넌트는 리렌더링된다. 또한 sate는 컴포넌트 안에서 관리한다.)
+
+super(props)란?
+super가 있어야 this를 사용 가능한데
+JS의 super
+1. 자식 클래스 내에서 부모 클래스의 생성자를 호출 할 때
+2. 자식 클래스 내에서 부모 클래스의 메소드를 호출 할 때
+
+class Car { 

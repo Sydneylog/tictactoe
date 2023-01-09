@@ -5,15 +5,17 @@ import "./Board.css"
 export default class Board extends Component {
 
   renderSquare(i) {
-    return <Square />
+    //스퀘어 컴포넌트에 value값을 할당 함
+    return <Square value={i}/>
   }
 
+  /* 여기서 this는 class board를 지칭하고 */
   render() {
     return (
       <div>
         <div className='status'>Next Player: x, O</div>
         <div className='board-row'>
-          {/* 여기서 this는 class board를 지칭하고 */}
+         
           {this.renderSquare(0)}
           {this.renderSquare(1)}
           {this.renderSquare(2)}
