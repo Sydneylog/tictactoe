@@ -119,6 +119,8 @@ value가 null인 경우 setState를 사용하여 value에 "X"를 할당
 
 react 컴포넌트생성자에 this.state를 설정하는 것으로 state를 가질 수 있다. 
 
+value값이 변화면 화면이 변하면 react state를 사용해야 함 컴포넌트 렌더링 결과물에 영향을 주는 데이터
+
 리액트에서 데이터가 변할 때 화면을 다시 렌더링 해주기 위해서는 react  state를 사용해야 한다.
 react state란
 컴포넌트 렌더링 결과물에 영향을 주는 데이터를 갖고 있는 객체이다.
@@ -131,10 +133,10 @@ JS의 super
 2. 자식 클래스 내에서 부모 클래스의 메소드를 호출 할 때
 
 class Car { 
-	3) constructor(brand) {
+	3) 생성자 호출 constructor(brand) {
 	this.carname = brand;
 	}
-	6)present() {
+	6) 메소드 호출 present() {
 	return 'i have a ' + this.carname
 	}
 }
@@ -156,4 +158,146 @@ super 이후에 this 키워드
 super 이후에 this가 나와야 하는 이유
 
 리액트에서 super에 props를 인자로 전달하는 이유
-리액트 컴포넌트 객체가 생성될 때 ㅂ
+
+자녀 클래스가 상속받아 객체화 될 때 constructor가 호출 됨 
+이때 부모 클래스에서 할당된 this.something 은
+자식 클래스에서 바로 호출 할 수 없음
+super(prop)으로 인계받아
+this.something이 할당 받은 후 constructor 안에서 this.something을 사용 할 수 있음
+
+react에서 super에 prop을 인자로 전달하는 이유는 prop 초기화 이유도 있음
+
+constructor 외부에서는 리액트가 super(props)를 정의하지 않더라도 this.something을 사용 할
+수 있는데 이는 리액트가 임의로 props를 할당하기 때문.
+하지만 constructor 안에서는 사용 불가하므로 super(props)필요
+
+**PROPs vs STATE
+props 
+부모에서 자녀로 data 전달 할 때 
+부모 
+A컴포넌트의 state ={a:'A'}
+<B컴포넌트 aProps={this.state.a} />
+자식
+B컴포넌트
+a state 필요
+this.props.aProps
+
+읽기전용 immutable -> 변경시키려면 부모에서 값을 변경시켜야 함
+
+state
+한 컴포넌트 내에서 데이터가 처리 될 때
+A컴포넌트
+state={a:'A'}
+
+사용 this.state.A
+
+
+**부모컴포넌트에서 state 보관하기
+Square 컴포넌트의 value: null을 부모 컴포넌트로 전달
+왜??
+여러개의 자식으로부터 데이터를 모으거나 두개의 자식 컴포넌트간 통신하게 하려면 부모 컴포넌트에
+공유 state를 정의해야 함
+
+Square 컴포넌트 클릭시 변화
+
+Array.prototype.slice() 원본은 변하지 않지만 얕은 복사로 배열을 복사
+
+
+**react 불변성 지키기
+값이나 상태를 변경실수 없는 것
+
+자바스크립트
+원시타입: 불변성 가짐(immutable) boolean string number null undefined symbol
+참조타입: 그렇지 않음 object array
+
+기본적으로 js는 원시타입에대한 참조 및 값을 저장하기 위해 call stack 메모리 공간을 사용 하지만 
+참조타입의 경우 heap이라는 별도의 메모리 공간을 사용한다 이 경우 call stack 은 객체 및
+배열 값이 아닌 메모리에만 heap 메모리 참조 id를 값을 저장 한다
+즉,
+원시타입 - 고정된 크기로 call stack 메모리에 저장, 실제 데이터가 변수에 할당
+참조타입 - 데이터 크기가 정해지지 않고 call stack 메모리에 저장, 데이터의 값이 heap에 
+저장되며 변수에 heap 메모리의 주소값이 할당 됨
+
+원시타입 
+let username = 'water'
+username = 'john'
+불변성이 있기 때문에 username을 대체한 것이 아닌 메모리 영역a에 username water를 남겨두고 
+메모리 영역 b에 username john을 새로 할당 한 것임
+
+참조타입
+let array = [1, 2, 3]
+array = [4, 5, 6] 
+callstack의 참조 id는 그대로이나 heap에 할당된 실제 값들이 변하게 됨 
+=> 그러므로 불변성을 신경 써 주어야 한다 (원본 데이터가 변하게 됨)
+
+불변성을 지켜야 하는 이유는 
+1. 원본데이터를 참고하는 다른 객체에 영향을 주기 때문에 예상치 못한 오류를 발생할 수 있어 프로그래밍
+난이도가 올라가게 된다ㅣ
+2. 리액트 화면을 업데이트 할 때 불변성을 지켜야 비교해서 변경된 사항을 업데이트 하기 때문에
+원본이 있어야 한다.
+따라서 참조타입의 경우 callstack 주소는 같은데 heap 메모리의 값이 바뀌기 때문에 불변성을 지키기 위해
+아예 새로운 배열을 반환하는 메소드를 사용하는 것임
+=> spread operator map slice reduce
+
+원본 데이터를 변경하는 메소드 => splice, push
+
+**react hooks
+reactconf 2018 에서 class 없이 state를 사용 할수 있는 기능
+
+필요 이유?
+본래 react는 class component를 사용하고 react hooks는 functional component를 사용함
+
+react component
+class component
+더많은 기능
+더 긴 코드
+더 복잡한 코드
+더딘 성능
+
+functional component
+적은 기능
+짧은 코드
+심플한 코드
+빠른 성능
+
+무엇이 더 적은 기능인가? react hooks가 있으면 똑같이 사용 가능
+
+react 생명주기
+mounting - updating - unmounting
+함수형 컴포너틑에서는 본래 생명주기를 사용하지 못했으나
+hooks에서 functional도 생명주기를 사용 할 수 있게 되었음
+
+componentDidMount - componentDidUpdate - componentWillUnmount
+class 문법에서는 생며주기 단계별로 코드를 작성해야 하나
+hooks에서는 useEffect내부에서 한번에 코드 작성 가능
+
+HOC 컴포넌트를 Custom React Hooks로 대체해서 과도하게 많은 wrapper 컴포넌트를 줄임
+
+HOC(hiher order componet)? 화면에서 재사용 가능한 로직만을 분리해서 componet로 만들고
+재사용 불가능한 UI와 같은 다른 부분들은 parameter로 받아서 처리하는 것
+중복되는 부분을 HOC 컴포넌트로 작성
+
+** 리액트 hooks를 이용해서 함수형으로 틱택토 앱 바꾸기
+
+** 순서를 만들어 O 추가하기
+null -> X -> O 새로운 state를 추가하여 xIsNext = true => X // xIsNext = false => O
+
+//승자 결정하기
+
+승리 할 수 있는 경우의 수를 배열로 만듦
+
+확장프로그램 tabnine AI
+
+승자가 결정된 경우 클릭 막기
+
+**동작에 대한 기록
+slice()메소드를 이용하여 원본을 바꾸는게 아닌 것을 이용하여 그전의 state로 돌아감
+과거의 slice()배열들을 history[]라는 다른 배열안에 저장 할 것
+
+hitory state는 어떤 컴포넌트에서 관리해야 하나?
+history는 boad와 square뿐만 아니라 game info에서도 해당 데이터를 필요하기에 App.js에서 
+관리해야 한다.
+왜냐하면 해당 state는 각각의 자식 컴포넌트간 데이터 교환이 필요하기 때문
+
+state를 app 컴포넌트로 옮기기
+ 
