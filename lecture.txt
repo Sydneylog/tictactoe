@@ -140,7 +140,7 @@ class Car {
 }
 
 
-2. class Model extends Car {
+2) class Model extends Car {
 	constructor (brand, mod) {
 	super(brand);
 	this.model = mod;
@@ -151,3 +151,9 @@ class Car {
 1) let mycar = new Model ("Ford", "Mustang");
 4) mycar.show()
 
+super 이후에 this 키워드
+생성자에서는 super 키워드 하나면 사용되거나 this키워드가 사용되기전에 호출되어야 한다.
+super 이후에 this가 나와야 하는 이유
+
+리액트에서 super에 props를 인자로 전달하는 이유
+리액트 컴포넌트 객체가 생성될 때 ㅂ
