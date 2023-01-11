@@ -337,5 +337,39 @@ jsx Key 속성
 이 경우 key를 추가하여 1,2번을 새롭게 그리는 것이 아닌 3번을 추가 후 1, 2 번은 자리만 이동시킴
 
 **key에는 유니크한 값을 넣어주어야한다 (index는 비추천)
+<li key={0}>1</li> <li key={1}>2</li> 에서 3을 추가할 경우
+<li key={0}>3</li> <li key={1}>1</li> <li key={2}>2</li>이 되어버려 해당 리스트이 고유의
+key값들도 바뀌게 됨
 
+
+** JumpTo 함수 
+
+**git 다시 정리
+working directory - git add => staging area - git commit => git repository(local) - git push 
+=> git reposittory(remote) 
+git commit -m "first commit"
+git branch -M main
+git remote add origin https://github.com.Sydneylog/sth.git
+git push -u origin main
+
+
+gh-pages 모듈 설치
+npm -i gh-pages --save-dev
+패키지.json에서 확인(devDependencies) 후
+"hompage":"https://Sydneylog.github.io/tictactoe/",추가
+
+이후 배포를 위한 script 작성
+"scripts": {
+"start": "react-scripts start",
+"build": "react-scripts build",
+"predeploy": "npm run build",
+"deploy": "gh-pages -d build",
+"test": "react-scripts test",
+"ejcect": "react-scripts eject"
+}
+clear
+npm run build
+npm run delploy
+
+published 확인
 
