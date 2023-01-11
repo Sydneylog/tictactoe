@@ -2,11 +2,11 @@ import { useState } from 'react';
 import "./App.css"
 import Board from "./components/Board";
 
+
 function App() {
-
-  const [history, setHistory] = useState([{ squares: Array[9].fill(null) }]);
+  //history가 배열이므로 대괄호 사용
+  const [history, setHistory] = useState([{ squares: Array(9).fill(null) }]);
   const [xIsNext, setXIsNext] = useState(true);
-
 
   const calculateWinner = (squares) => {
     const lines = [
@@ -26,9 +26,12 @@ function App() {
       }
     return null;
   }
+
   const current = history[history.length - 1];
   //현재상태의 squares 배열 state를 주어야 함 current의 square 지정
   const winner = calculateWinner(current.squares); 
+ 
+
   let status;
   if(winner) { 
     status = "Winner: " + winner;
@@ -39,18 +42,20 @@ function App() {
   const handleClick = (i) => {
     const newSquares = current.squares.slice();
     if(calculateWinner(newSquares) || newSquares[i]) {
-      return;
+      return
     }
     newSquares[i] = xIsNext ? 'X' : 'O';
     setHistory([...history, {squares: newSquares}]);
-    //setXIsNext(!xIsNext);
-    setXIsNext(prev => !prev);
+    setXIsNext(!xIsNext);
+    //setXIsNext(current => !current);
   }
+  
+  
 
   return (
     <div className="game">
       <div className="game-board">
-        <Board squares={current.squares} onClick={(i) => handleClick[i]}/>
+        <Board squares={current.squares} onClick={(i) => handleClick(i)}/>
       </div>
       <div className="game-info">
         <div className='status'>{ status }</div>

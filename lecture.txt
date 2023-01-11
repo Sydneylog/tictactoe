@@ -301,3 +301,4 @@ history는 boad와 square뿐만 아니라 game info에서도 해당 데이터를
 
 state를 app 컴포넌트로 옮기기
  
+히스토리 반대 해쉬

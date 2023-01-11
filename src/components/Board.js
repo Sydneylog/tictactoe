@@ -7,8 +7,10 @@ import "./Board.css"
 //Array.prototype.fill() 배열의 시작인덱스부터 끝까지 정적인 값 하나로 채움
 
 //export default class Board extends Component { 클래스형
-const Board = (squares, onClick) => {
- 
+const Board = ({squares, onClick}) => {
+  console.log(squares);
+  //props.squares props.onClick
+
   //클래스 일 땐 constructor  피룡
   // constructor(props) {
   //   super(props)
@@ -24,11 +26,6 @@ const Board = (squares, onClick) => {
   //const [xIsNext, setXIsNext] = useState(true)
    //승리 경우의 수
 
-
-  
- 
-  
-  
   //클릭시 해당 index state value 변경후 slice()메소드로 얕은 복사된 배열은 렌더링함
   //class에서는 this.state로 가져와야하나
   // handleClick(i) {
@@ -60,14 +57,13 @@ const Board = (squares, onClick) => {
   // }
   //함수형
   const renderSquare = (i) => {
-    return <Square value={squares[i]} onClick={() => onClick(i)}/>
+    return <Square value={squares[i]} onClick={() => onClick(i)} />
   }
 
   /* 여기서 this는 class board를 지칭 */
   //render() { 함수형에서 return 하는 render
     return (
       <div>
-        
         <div className='board-row'>
           {renderSquare(0)}
           {renderSquare(1)}
@@ -85,7 +81,7 @@ const Board = (squares, onClick) => {
         </div>
       </div>
     )
-  }
+}
 
 //rafce react arrow function
 
