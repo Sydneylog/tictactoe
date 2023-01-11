@@ -347,16 +347,17 @@ key값들도 바뀌게 됨
 **git 다시 정리
 working directory - git add => staging area - git commit => git repository(local) - git push 
 => git reposittory(remote) 
+
 git commit -m "first commit"
 git branch -M main
-git remote add origin https://github.com.Sydneylog/sth.git
+git remote add origin https://github.com.Sydneylog/tictac.git
 git push -u origin main
 
 
 gh-pages 모듈 설치
 npm -i gh-pages --save-dev
 패키지.json에서 확인(devDependencies) 후
-"hompage":"https://Sydneylog.github.io/tictactoe/",추가
+"hompage":"https://Sydneylog.github.io/tictac/",추가
 
 이후 배포를 위한 script 작성
 "scripts": {
