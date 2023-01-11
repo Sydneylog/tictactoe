@@ -8,7 +8,7 @@ import "./Board.css"
 
 //export default class Board extends Component { 클래스형
 const Board = ({squares, onClick}) => {
-  console.log(squares);
+  //console.log(squares);
   //props.squares props.onClick
 
   //클래스 일 땐 constructor  피룡
