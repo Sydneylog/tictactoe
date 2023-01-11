@@ -63,7 +63,7 @@ const Board = ({squares, onClick}) => {
   /* 여기서 this는 class board를 지칭 */
   //render() { 함수형에서 return 하는 render
     return (
-      <div>
+      <div class="board-wrapper">
         <div className='board-row'>
           {renderSquare(0)}
           {renderSquare(1)}
